@@ -1,0 +1,113 @@
+# Assignment 1
+
+"""
+In second year computer engineering class, group A students play cricket
+group b play badminton and group c students play football
+a) list of students who play both cricket and badminton
+b) list of students who play either cricket or badminton but not both
+c) Number of students who play neither cricket nor badminton
+d) Number of students who play cricket and football but not badminton
+"""
+
+def cricket_badminton(stud_list):
+    lst = []
+    for name in stud_list:
+        if name in cricket_list:
+            if name in badminton_list:
+                lst.append(name)
+    return lst
+
+def either_cricket_or_badminton(stud_list):
+    lst = []
+    new_list = cricket_list + badminton_list
+    for name in stud_list:
+        if name in cricket_list:
+            if name in badminton_list:
+                lst.append(name)
+    new_list = duplicate_remove(new_list)
+    for item in lst:
+        if item in new_list:
+            new_list.remove(item)
+    return new_list
+
+
+def neither_cricket_badminton(stud_list):
+    lst = []
+    for name in stud_list:
+        if name not in cricket_list:
+            if name not in badminton_list:
+                lst.append(name)
+    return lst
+
+def cricket_football_not_badminton(stud_list):
+    lst = []
+    for name in stud_list:
+        if name in cricket_list:
+            if name in football_list:
+                if name not in badminton_list:
+                    lst.append(name)
+    return lst
+    
+
+def duplicate_remove(lst):
+    new_list = []
+    for element in lst:
+        if element not in new_list:
+            new_list.append(element)
+    return new_list
+
+
+
+SEcomp = []
+all_stud = input("\nEnter list of all student names(enter name with spaces): ")
+SEcomp = all_stud.split(' ')
+print(SEcomp)
+
+cricket_list=[]
+cricket = input("\nEnter names of student who play Cricket(Enter names with space): ")
+cricket_list = cricket.split(' ')
+cricket_list = duplicate_remove(cricket_list)
+print("list of students who play cricket",cricket_list)
+
+badminton_list=[]
+badminton = input("\nEnter names of student who play Badminton(Enter names with space): ")
+badminton_list = badminton.split(' ')
+badminton_list = duplicate_remove(badminton_list)
+print("lsit of students who play badminton",badminton_list)
+
+football_list=[]
+football = input("\nEnter names of student who play Football(Enter names with space): ")
+football_list = football.split(' ')
+football_list = duplicate_remove(football_list)
+print("list of students who play football",football_list)
+
+
+flag = 1
+while flag != 0:
+    print("----------operations----------")
+    user_input = int(input("""
+1 list of students who play both cricket and badminton
+2 list of students who play either cricket or badminton but not both
+3 Number of students who play neither cricket nor badminton
+4 Number of students who play cricket and football but not badminton
+5 quit
+    """))
+    if user_input == 1:
+        option_a = cricket_badminton(SEcomp)
+        print("list of students who play both cricket and badminton",option_a)
+    elif user_input == 2:
+        option_b = either_cricket_or_badminton(SEcomp)
+        print("list of studetns who play either cricket or badminton but not both",option_b)
+    elif user_input == 3:
+        option_c = neither_cricket_badminton(SEcomp)
+        print(f"number of students who play neither cricket nor badminton",len(option_c))
+        print("list of the students",option_c)
+    elif user_input == 4:
+        option_d = cricket_football_not_badminton(SEcomp)
+        print("number of students who play cricket and football but not badminton",len(option_d))
+        print("list of students ",option_d)
+    elif user_input == 5:
+        flag = 0
+        break
+    else:
+        print("enter valid input")
